@@ -1,0 +1,36 @@
+---
+# tasks file for apache
+- name: installing httpd and firewalld
+  yum: 
+    name: 
+      - httpd
+      - firewalld
+    state: installed
+
+- name: starting services
+  service:
+    name: httpd
+    state: started
+
+- name: starting services firewalld
+  service:
+    name: firewalld
+    state: started
+
+- name: adding http in firewall
+  firewalld:
+    service: http
+    permanent: yes
+    immediate: yes
+    state: enabled
+  notify: 
+    - firewalldrestart
+    - firewalldenable
+
+- name: copying template
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify: 
+    - httpdrestart
+    - httpdenable

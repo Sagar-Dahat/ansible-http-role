@@ -1,0 +1,23 @@
+---
+# handlers file for apache
+- name: firewalldenable
+  service:
+    name: firewalld
+    enabled: yes
+
+- name: firewalldrestart
+  service:
+    name: firewalld
+    state: restarted
+
+
+- name: httpdenable
+  service:
+    name: httpd
+    enabled: yes
+
+- name: httpdrestart
+  service:
+    name: httpd
+    state: restarted
+
